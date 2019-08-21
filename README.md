@@ -5,7 +5,7 @@ The code is uploaded to demonstrate the simple role based Admin Panel applicatio
 
 **Purpose :**
 
-For every website, we need some sort of admin panel to monitor over the content of the website. The developers must have to start with the basic functinalities like login, logout, create/manage admin users, manage their roles, change password, forget password etc. This repository gives you all above things readymade as boilerplate for admin panel (but by using CodeIgniter PHP MVC framework). You just start code to add your project feature in it.
+our task app
 
 ## Features
 1. Login, Logout.
@@ -14,17 +14,3 @@ For every website, we need some sort of admin panel to monitor over the content 
 4. Predefined Roles (You can change roles and rights as per your project requirement).
 5. Login history of Users.
 6. Add Task of your Requirements.
-
-
-## Installation
-
-Download the code from repository.
-Unzip the zip file.
-
-Open browser; goto [localhost/phpmyadmin](http://localhost/phpmyadmin).
-
-Create a database with name "cias" and import the file "cias.sql" in that database.
-
-Copy the remaining code into your root directory:
-
-for example, for windows
