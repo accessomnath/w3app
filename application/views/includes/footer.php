@@ -28,24 +28,24 @@
             y.addClass('active');
             y.parent().addClass('active');
 
-        $(document).ready(function() {
-            var tagApi = $("#taid").val();
-
-            $( "#taid" ).keypress(function() {
-                console.log( "Handler for .keypress() called." );
-                var tagApi = $("#taid").val();
-                // console.log(tagApi);
-
-                $.get('<?php echo base_url(); ?>user/usertag', { option: tagApi }, function(data) {
-
-
-                    console.log('hiii');
-                });
-
-
-            });
-
-        });
+        //$(document).ready(function() {
+        //    var tagApi = $("#taid").val();
+        //
+        //    $( "#taid" ).keypress(function() {
+        //        console.log( "Handler for .keypress() called." );
+        //        var tagApi = $("#taid").val();
+        //        // console.log(tagApi);
+        //
+        //        $.get('<?php //echo base_url(); ?>//user/usertag', { option: tagApi }, function(data) {
+        //
+        //
+        //            console.log('hiii');
+        //        });
+        //
+        //
+        //    });
+        //
+        //});
 
 
     </script>
