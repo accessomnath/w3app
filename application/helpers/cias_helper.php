@@ -148,5 +148,19 @@ if(!function_exists('setFlashData'))
         $CI->session->set_flashdata($status, $flashMsg);
     }
 }
+/**
+ * Get the Absolute Upload Path
+ *
+ * @access  public
+ * @return  string
+ */
+if ( ! function_exists('upload_path'))
+{
+    function upload_path()
+    {
+        $CI =& get_instance();
+        return FCPATH . $CI->config->item('upload_path');
+    }
+}
 
 ?>

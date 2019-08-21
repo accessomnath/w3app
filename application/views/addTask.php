@@ -67,11 +67,26 @@
 
                             </div>
                             <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="tprice">Budget</label><br/>
+                                        <input type="text" name="tprice" id="tprice" placeholder="Task Price..." class="typeahead tm-input form-control tm-input-info"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="tdead">Deadline</label><br/>
+                                        <input type="text" name="tdead" id="tdead" placeholder="Task Deadline..." class="typeahead tm-input form-control tm-input-info"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
                                 <div class="col-md-12">
 
                                     <div class="add-img-box">
 
-                                        <button class="btn btn-primary">
+                                        <button class="btn btn-primary" type="button">
                                             <span>Add Files</span>
                                             <!--<input type="file" name="usefile[]" class="form-control add-img" multiple>-->
                                             <input type="file" name="userfile[]" multiple="multiple">
@@ -93,13 +108,14 @@
             </div>
             <div class="col-md-4">
                 <?php
+
                 $this->load->helper('form');
                 $error = $this->session->flashdata('error');
                 if ($error) {
                     ?>
                     <div class="alert alert-danger alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <?php echo $this->session->flashdata('error'); ?>
+                        <?php echo $this->session->flashdata('error_msg'); ?>
                     </div>
                 <?php } ?>
                 <?php

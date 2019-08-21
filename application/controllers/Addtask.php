@@ -51,20 +51,90 @@ class Addtask extends BaseController
 
             $this->form_validation->set_rules('tt', 'Job Name', 'trim|required|max_length[128]');
             $this->form_validation->set_rules('tabout', 'Job Descriptions', 'trim|required|min_length[10]');
+            $this->form_validation->set_rules('tprice', 'Job Price', 'trim|required|min_length[10]');
+            $this->form_validation->set_rules('tdead', 'Job Deadline', 'trim|required|min_length[10]');
 
             if ($this->form_validation->run() == FALSE) {
                 $this->addNewtasks();
             } else {
-                $taskTitle = ucwords(strtolower($this->security->xss_clean($this->input->post('tt'))));
-                $taskAbout = strtolower($this->security->xss_clean($this->input->post('tabout')));
 
-//                var_dump($taskTitle);
-//                var_dump($taskAbout);
+                $info['tt'] = ucwords(strtolower($this->security->xss_clean($this->input->post('tt'))));
+                $info['	taid'] = $this->session->userdata('userId');
+                $info['tabout'] = strtolower($this->security->xss_clean($this->input->post('tabout')));
+                $info['tprice'] = strtolower($this->security->xss_clean($this->input->post('tprice')));
+                $info['tdead'] = strtolower($this->security->xss_clean($this->input->post('tdead')));
+
+                $flag = $this->task_model->addNewTask($info);
+//                ...../
+                if ($flag == "error") {
+                    $this->session->set_flashdata('error_msg', 'Oops! Looks Like Something Went Wrong Please Try Again.');
+                } elseif ($flag == "duplicate") {
+                    $this->session->set_flashdata('error_msg', 'Oops! Looks Like Task Already Exists Please Try Again.');
+                } else {
+                    $this->session->set_flashdata('success', 'Successfully Added Task Details');
+                    $this->load->library('upload');
+                    $dataInfo = array();
+                    $files = $_FILES;
+
+                    $cpt = count($_FILES['userfile']['name']);
+                    for ($i = 0; $i < $cpt; $i++) {
+                        $_FILES['userfile']['name'] = $files['userfile']['name'][$i];
+                        $_FILES['userfile']['type'] = $files['userfile']['type'][$i];
+                        $_FILES['userfile']['tmp_name'] = $files['userfile']['tmp_name'][$i];
+                        $_FILES['userfile']['error'] = $files['userfile']['error'][$i];
+                        $_FILES['userfile']['size'] = $files['userfile']['size'][$i];
+
+                        $this->upload->initialize($this->set_upload_options());
+                        // if ( ! $this->upload->do_upload())
+                        //  {
+                        //        echo $this->upload->display_errors('<p>', '</p>');
+                        //  }
+                        $this->upload->do_upload();
+                        $dataInfo[] = $this->upload->data();
+
+                    }
+                    $format = array('.zip', '.doc', '.pdf', '.png');
+
+                    // die;
+                    foreach ($dataInfo as $in) {
+                        if (in_array($in['file_ext'], $format)) {
+                            $data = array(
+
+                                'file' => $in['file_name'],
+                                'tsk_id' => $flag,
+                                'usr_id' => $this->session->userdata('userId'));
+                            $img_res = $this->task_model->addTaskFile($data);
+                            if ($img_res != true) {
+                                $this->session->set_flashdata('error_msg_img', 'Oops! Looks Like Something Went Wronfg Please Try Again.');
+                            } else {
+                                $this->session->set_flashdata('success_img', 'All Files Were Added Successfully');
+                            }
+                        }
+                    }
+//                    redirect(site_url('edit_aircraft/index/'.$flag));
+
+
+                }
+                $this->load->library('user_agent');
+                $refer = $this->agent->referrer();
+                redirect($refer);
 
 
             }
 
         }
 
+    }
+
+    private function set_upload_options()
+    {
+        //upload an image options
+        $config = array();
+        $config['upload_path'] = './assets/upload/';
+        $config['allowed_types'] = 'zip|doc|pdf|docx';
+        $config['max_size'] = '0';
+        $config['overwrite'] = FALSE;
+
+        return $config;
     }
 }

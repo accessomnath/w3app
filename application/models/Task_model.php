@@ -1,4 +1,4 @@
-<?php if(!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * Class : Task_model (User Model)
@@ -32,15 +32,41 @@ class Task_model extends CI_Model
 //        return $query->num_rows();
     }
 
-    function addNewTask($tasknfo)
+
+    public function addNewTask($data)
+    {
+//        $tid = 1;
+//        if ($tid == "0") {
+        $this->db->trans_start();
+        $this->db->insert('tbl_w3_task', $data);
+        $afftectedRows = $this->db->affected_rows();
+        if ($afftectedRows == 1) {
+            $insert_id = $this->db->insert_id();
+            $this->db->trans_complete();
+            return $insert_id;
+        } else {
+            return $msg = "error";
+        }
+//        } else {
+//            return $msg = "duplicate";
+//        }
+    }
+
+    public function addTaskFile($data)
     {
         $this->db->trans_start();
-        $this->db->insert('tbl_w3_task', $tasknfo);
+        $this->db->insert('tbl_w3_tsk_file', $data);
+        $afftectedRows = $this->db->affected_rows();
+        if ($afftectedRows == 1) {
+            $this->db->trans_complete();
+            return true;
 
-        $insert_id = $this->db->insert_id();
+        } else {
 
-        $this->db->trans_complete();
+            return false;
+        }
 
-        return $insert_id;
     }
+
+
 }
