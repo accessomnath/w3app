@@ -11,10 +11,19 @@
     <link href="<?php echo base_url(); ?>assets/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons 2.0.0 -->
     <link href="<?php echo base_url(); ?>assets/bower_components/Ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="<?php echo base_url(); ?>assets/css/jq/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/css/jq/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/css/jq/jquery-ui.structure.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/css/jq/jquery-ui.structure.min.css" rel="stylesheet" type="text/css" />
+      <link href="<?php echo base_url(); ?>assets/css/jq/jquery-ui.theme.css" rel="stylesheet" type="text/css" />
+      <link href="<?php echo base_url(); ?>assets/css/jq/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
     <link href="<?php echo base_url(); ?>assets/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url(); ?>assets/css/mdb.css" rel="stylesheet" type="text/css" />
-<!--    <link href="--><?php //echo base_url(); ?><!--assets/css/mdb.lite.css" rel="stylesheet" type="text/css" />-->
+    <link href="<?php echo base_url(); ?>assets/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/css/mdb.lite.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->

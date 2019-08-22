@@ -291,6 +291,28 @@ class User_model extends CI_Model
         
         return $query->row();
     }
+    function getUsers(){
+        $this->db->select('userId, name, email, mobile, roleId');
+        $this->db->from('tbl_users');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return NULL;
+        }
+
+    }
+//    public function user_list($limit, $page)
+//    {
+//        $this->db->order_by("userId", "desc");
+//        $this->db->limit($limit, $page);
+//        $query = $this->db->get("userId");
+//        if ($query->num_rows() > 0) {
+//            return $query->result();
+//        } else {
+//            return NULL;
+//        }
+//    }
 
 }
 

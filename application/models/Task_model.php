@@ -14,10 +14,10 @@ class Task_model extends CI_Model
      * @param string $searchText : This is optional search text
      * @return number $count : This is row count
      */
-    function userListingCount($searchText = '')
+    function taskListingCount($searchText = '')
     {
 //        $this->db->select('BaseTbl.userId, BaseTbl.email, BaseTbl.name, BaseTbl.mobile, BaseTbl.createdDtm, Role.role');
-//        $this->db->from('tbl_users as BaseTbl');
+//        $this->db->from('tbl_w3_task as BaseTbl');
 //        $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
 //        if(!empty($searchText)) {
 //            $likeCriteria = "(BaseTbl.email  LIKE '%".$searchText."%'
@@ -31,6 +31,7 @@ class Task_model extends CI_Model
 //
 //        return $query->num_rows();
     }
+
 
 
     public function addNewTask($data)

@@ -18,12 +18,17 @@ class Addtask extends BaseController
     {
         parent::__construct();
         $this->load->model('task_model');
+
         $this->isLoggedIn();
     }
 
     public function index()
     {
+        $this->load->model('user_model');
+        $total_row["user_list"] = $this->user_model->getUsers();
+
         $this->global['pageTitle'] = 'W3Industry : Add New Task';
+        $this->global['user_list'] = $this->user_model->getUsers();;
 
         $this->loadViews("addtask", $this->global, NULL, NULL);
     }
@@ -34,9 +39,7 @@ class Addtask extends BaseController
             $this->loadThis();
         } else {
             $this->load->model('task_model');
-
             $this->global['pageTitle'] = 'W3Industry : Add New Task';
-
             $this->loadViews("addtask", $this->global, NULL);
         }
     }
@@ -51,15 +54,23 @@ class Addtask extends BaseController
 
             $this->form_validation->set_rules('tt', 'Job Name', 'trim|required|max_length[128]');
             $this->form_validation->set_rules('tabout', 'Job Descriptions', 'trim|required|min_length[10]');
-            $this->form_validation->set_rules('tprice', 'Job Price', 'trim|required|min_length[10]');
-            $this->form_validation->set_rules('tdead', 'Job Deadline', 'trim|required|min_length[10]');
+            $this->form_validation->set_rules('tprice', 'Job Price', 'trim|required|min_length[1]');
+            $this->form_validation->set_rules('tdead', 'Job Deadline', 'trim|required|min_length[6]');
 
             if ($this->form_validation->run() == FALSE) {
                 $this->addNewtasks();
             } else {
 
+                $assign_ids = implode(', ', $this->input->post('taid'));
+
+                date_default_timezone_set('Asia/Kolkata');
+
+                $date = date("Y-m-d  H:i", time());
+
                 $info['tt'] = ucwords(strtolower($this->security->xss_clean($this->input->post('tt'))));
-                $info['	taid'] = $this->session->userdata('userId');
+                $info['taid'] = $assign_ids;
+                $info['tcd'] = $date;
+                $info['	tcid'] = $this->session->userdata('userId');
                 $info['tabout'] = strtolower($this->security->xss_clean($this->input->post('tabout')));
                 $info['tprice'] = strtolower($this->security->xss_clean($this->input->post('tprice')));
                 $info['tdead'] = strtolower($this->security->xss_clean($this->input->post('tdead')));
@@ -85,16 +96,12 @@ class Addtask extends BaseController
                         $_FILES['userfile']['size'] = $files['userfile']['size'][$i];
 
                         $this->upload->initialize($this->set_upload_options());
-                        // if ( ! $this->upload->do_upload())
-                        //  {
-                        //        echo $this->upload->display_errors('<p>', '</p>');
-                        //  }
+
                         $this->upload->do_upload();
                         $dataInfo[] = $this->upload->data();
 
                     }
-                    $format = array('.zip', '.doc', '.pdf', '.png');
-
+                    $format = array('.zip', '.doc', '.pdf');
                     // die;
                     foreach ($dataInfo as $in) {
                         if (in_array($in['file_ext'], $format)) {
@@ -128,7 +135,7 @@ class Addtask extends BaseController
 
     private function set_upload_options()
     {
-        //upload an image options
+        //upload an files options
         $config = array();
         $config['upload_path'] = './assets/upload/';
         $config['allowed_types'] = 'zip|doc|pdf|docx';

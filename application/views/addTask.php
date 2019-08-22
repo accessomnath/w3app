@@ -54,29 +54,31 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-<!--                                    <div class="form-group">-->
-<!--                                        <label for="taid">Assign to</label>-->
-<!--                                        <input type="text" class="form-control required" id="taid" name="taid"-->
-<!--                                               maxlength="20">-->
-<!--                                    </div>-->
                                     <div class="form-group">
                                         <label for="taid">Assign to</label><br/>
-                                        <input type="text" name="taid" id="taid" placeholder="Employee name..." class="typeahead tm-input form-control tm-input-info"/>
+                                        <select id="taid" name="taid[]" multiple="multiple" style="width: 100%;">
+                                            <?php foreach ($user_list as $list): ?>
+                                                <option value="<?php echo $list->userId; ?>"><?php echo $list->name; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="tprice">Budget</label><br/>
-                                        <input type="text" name="tprice" id="tprice" placeholder="Task Price..." class="typeahead tm-input form-control tm-input-info"/>
+                                        <input type="number" required name="tprice" id="tprice" placeholder="Task Price..."
+                                               class="typeahead tm-input form-control tm-input-info"/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
+
                                     <div class="form-group">
+
                                         <label for="tdead">Deadline</label><br/>
-                                        <input type="text" name="tdead" id="tdead" placeholder="Task Deadline..." class="typeahead tm-input form-control tm-input-info"/>
+                                        <input type="text" name="tdead" id="tdead" placeholder="Task Deadline..."
+                                                                                       class="typeahead tm-input form-control tm-input-info"/>
                                     </div>
                                 </div>
 
@@ -125,6 +127,7 @@
                     <div class="alert alert-success alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <?php echo $this->session->flashdata('success'); ?>
+                        <?php echo $this->session->flashdata('success_img'); ?>
                     </div>
                 <?php } ?>
 
@@ -138,4 +141,5 @@
     </section>
 
 </div>
-<script src="<?php echo base_url(); ?>assets/js/addTask.js" type="text/javascript"></script>
+<!--<script src="--><?php //echo base_url(); ?><!--assets/js/addTask.js" type="text/javascript"></script>-->
+

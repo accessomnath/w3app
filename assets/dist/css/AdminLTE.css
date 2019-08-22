@@ -4975,3 +4975,6 @@ table.text-center th {
     white-space: normal !important;
   }
 }
+input[type=text]:focus {
+  border: 3px solid #555;
+}
