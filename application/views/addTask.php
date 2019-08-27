@@ -67,7 +67,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="tprice">Budget</label><br/>
+                                        <label for="tprice">Budget ($$)</label><br/>
                                         <input type="number" required name="tprice" id="tprice" placeholder="Task Price..."
                                                class="typeahead tm-input form-control tm-input-info"/>
                                     </div>

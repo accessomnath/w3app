@@ -73,7 +73,21 @@ class BaseController extends CI_Controller {
 			return false;
 		}
 	}
-	
+
+    function isclient() {
+        if ($this->role == ROLE_CLIENT ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function isemployee() {
+        if ($this->role == ROLE_EMPLOYEE ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 	/**
 	 * This function is used to load the set of views
 	 */

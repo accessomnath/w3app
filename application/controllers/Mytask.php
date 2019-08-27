@@ -3,13 +3,13 @@
 require APPPATH . '/libraries/BaseController.php';
 
 /**
- * Class : Alltask (UserController)
+ * Class : Mytask (UserController)
  * User Class to control all user related operations.
  * @author : W3Industry
  * @version : 1.1
  * @since : 19 November 2019
  */
-class Alltask extends BaseController
+class Mytask extends BaseController
 {
     /**
      * This is default constructor of the class
@@ -22,10 +22,10 @@ class Alltask extends BaseController
     }
     public function index()
     {
-        $this->global['pageTitle'] = 'W3Industry : Tasks';
+        $this->global['pageTitle'] = 'W3Industry : My Tasks';
 
 //        $this->loadViews("alltask", $this->global, NULL , NULL);
-        if($this->isclient() == TRUE && $this->isemployee() == FALSE )
+        if($this->isclient() == FALSE && $this->isemployee() == FALSE )
         {
             $this->loadThis();
         }
@@ -36,11 +36,11 @@ class Alltask extends BaseController
 
             $this->load->library('pagination');
 
-            $count = $this->task_model->taskListingCount($searchText);
+            $count = $this->task_model->mytaskListingCount($searchText);
 
             $returns = $this->paginationCompress ( "taskListing/", $count, 10 );
 
-            $data['taskRecords'] = $this->task_model->taskListing($searchText, $returns["page"], $returns["segment"]);
+            $data['taskRecords'] = $this->task_model->mytaskListing($searchText, $returns["page"], $returns["segment"]);
 
             $this->global['pageTitle'] = 'W3Industry : Task Listing';
 

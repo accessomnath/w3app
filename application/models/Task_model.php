@@ -16,21 +16,99 @@ class Task_model extends CI_Model
      */
     function taskListingCount($searchText = '')
     {
-//        $this->db->select('BaseTbl.userId, BaseTbl.email, BaseTbl.name, BaseTbl.mobile, BaseTbl.createdDtm, Role.role');
-//        $this->db->from('tbl_w3_task as BaseTbl');
-//        $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
-//        if(!empty($searchText)) {
-//            $likeCriteria = "(BaseTbl.email  LIKE '%".$searchText."%'
-//                            OR  BaseTbl.name  LIKE '%".$searchText."%'
-//                            OR  BaseTbl.mobile  LIKE '%".$searchText."%')";
-//            $this->db->where($likeCriteria);
-//        }
+        $this->db->select('BaseTbl.tid, BaseTbl.tt, BaseTbl.taid, BaseTbl.tcid, BaseTbl.tdead, File.file');
+        $this->db->from('tbl_w3_task as BaseTbl');
+        $this->db->join('tbl_w3_tsk_file as File', 'File.tsk_id = BaseTbl.tid','left');
+        if(!empty($searchText)) {
+            $likeCriteria = "(BaseTbl.tid  LIKE '%".$searchText."%'
+                            OR  BaseTbl.tt  LIKE '%".$searchText."%'
+                            OR  BaseTbl.tcid  LIKE '%".$searchText."%')";
+            $this->db->where($likeCriteria);
+        }
 //        $this->db->where('BaseTbl.isDeleted', 0);
 //        $this->db->where('BaseTbl.roleId !=', 1);
-//        $query = $this->db->get();
-//
-//        return $query->num_rows();
+        $query = $this->db->get();
+
+        return $query->num_rows();
     }
+
+    /**
+     * This function is used to get the user listing count
+     * @param string $searchText : This is optional search text
+     * @param number $page : This is pagination offset
+     * @param number $segment : This is pagination limit
+     * @return array $result : This is result
+     */
+    function taskListing($searchText = '', $page, $segment)
+    {
+
+        $this->db->select('BaseTbl.tid, BaseTbl.tt, BaseTbl.taid, BaseTbl.tcid, BaseTbl.tcd, BaseTbl.tdead, BaseTbl.tprice, File.file, Usern.name');
+        $this->db->from('tbl_w3_task as BaseTbl');
+        $this->db->join('tbl_w3_tsk_file as File', 'File.tsk_id = BaseTbl.tid','left');
+        $this->db->join('tbl_users as Usern', 'Usern.userId = BaseTbl.tcid','left');
+        if(!empty($searchText)) {
+            $likeCriteria = "(BaseTbl.tid  LIKE '%".$searchText."%'
+                            OR  BaseTbl.tt  LIKE '%".$searchText."%'
+                            OR  BaseTbl.tcid  LIKE '%".$searchText."%')";
+            $this->db->where($likeCriteria);
+        }
+        $this->db->order_by('BaseTbl.tid', 'DESC');
+        $this->db->limit($page, $segment);
+        $query = $this->db->get();
+
+        $result = $query->result();
+        return $result;
+    }
+
+    function mytaskListingCount($searchText = '')
+    {
+//        $userId = $userInfo->userId;
+        $userId = $this->session->userdata('userId');
+        $this->db->select('BaseTbl.tid, BaseTbl.tt, BaseTbl.taid, BaseTbl.tcid, BaseTbl.tdead, File.file');
+        $this->db->from('tbl_w3_task as BaseTbl');
+        $this->db->join('tbl_w3_tsk_file as File', 'File.tsk_id = BaseTbl.tid','left');
+        if(!empty($searchText)) {
+            $likeCriteria = "(BaseTbl.tid  LIKE '%".$searchText."%'
+                            OR  BaseTbl.tt  LIKE '%".$searchText."%'
+                            OR  BaseTbl.tcid  LIKE '%".$searchText."%')";
+            $this->db->where($likeCriteria);
+        }
+//        $this->db->where('BaseTbl.tcid = ' . $userId , 0);
+        $this->db->where('BaseTbl.tcid =', $userId);
+        $query = $this->db->get();
+
+        return $query->num_rows();
+    }
+
+    /**
+     * This function is used to get the user listing count
+     * @param string $searchText : This is optional search text
+     * @param number $page : This is pagination offset
+     * @param number $segment : This is pagination limit
+     * @return array $result : This is result
+     */
+    function mytaskListing($searchText = '', $page, $segment)
+    {
+        $userId = $this->session->userdata('userId');
+        $this->db->select('BaseTbl.tid, BaseTbl.tt, BaseTbl.taid, BaseTbl.tcid, BaseTbl.tcd, BaseTbl.tdead, BaseTbl.tprice, File.file, Usern.name');
+        $this->db->from('tbl_w3_task as BaseTbl');
+        $this->db->join('tbl_w3_tsk_file as File', 'File.tsk_id = BaseTbl.tid','left');
+        $this->db->join('tbl_users as Usern', 'Usern.userId = BaseTbl.tcid','left');
+        if(!empty($searchText)) {
+            $likeCriteria = "(BaseTbl.tid  LIKE '%".$searchText."%'
+                            OR  BaseTbl.tt  LIKE '%".$searchText."%'
+                            OR  BaseTbl.tcid  LIKE '%".$searchText."%')";
+            $this->db->where($likeCriteria);
+        }
+        $this->db->where('BaseTbl.tcid =', $userId);
+        $this->db->order_by('BaseTbl.tid', 'DESC');
+        $this->db->limit($page, $segment);
+        $query = $this->db->get();
+
+        $result = $query->result();
+        return $result;
+    }
+
 
 
 

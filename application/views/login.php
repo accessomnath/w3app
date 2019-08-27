@@ -8,7 +8,7 @@
           type="text/css"/>
     <link href="<?php echo base_url(); ?>assets/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"
           type="text/css"/>
-    <link href="<?php echo base_url(); ?>assets/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo base_url(); ?>assets/dist/css/AdminLTE.css" rel="stylesheet" type="text/css"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,9 +21,19 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition login-page">
+<style>
+    .img {
+        width: 30%;
+    }
+
+    body {
+        height: 80%;
+    }
+</style>
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b>W3Industry</b><br>Admin System</a>
+        <a href="<?php echo base_url() ?>"> <img class="img" src="<?php base_url() ?>assets/images/w3logo.png">
+            <b></b><br>W3 Member's Area</a>
     </div><!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">Sign In</p>
